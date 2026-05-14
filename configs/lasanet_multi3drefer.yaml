@@ -1,0 +1,176 @@
+
+train:
+  seed: 1999
+  epochs: 70
+  interval: 1
+  pretrain: backbones/sp_unet_backbone.pth
+  save_epoch: 100
+  grad_clip: 0.1
+
+test:
+  seed: 1999
+  test_topk_per_scene: 100
+  test_score_thresh: 0.0
+  test_npoint_thresh: 100
+
+dataloader:
+  train:
+    batch_size: 2
+    num_workers: 4
+    persistent_workers: True
+  val:
+    batch_size: 1
+    num_workers: 4
+    persistent_workers: True
+  test:
+    batch_size: 1
+    num_workers: 2
+    persistent_workers: True
+
+data:
+  train:
+    type: scannetv2_sample_graph_edge
+    dataset: multi3drefer
+    data_root: data/
+    prefix: train
+    suffix: .pth
+    training: True
+    mode: 4
+    aug: True
+    with_elastic: True
+    use_xyz: True
+    voxel_cfg:
+      scale: 50
+      spatial_shape: [128, 512]
+      max_npoint: 2500000
+    max_des_len: 78
+    lang_num_max: 8
+    feat_2d_type: dinov3-16plus
+  val:
+    type: scannetv2_sample_graph_edge
+    dataset: multi3drefer
+    data_root: data/
+    prefix: val
+    suffix: .pth
+    training: False
+    mode: 4
+    aug: False
+    with_elastic: False
+    use_xyz: True
+    voxel_cfg:
+      scale: 50
+      spatial_shape: [128, 512]
+      max_npoint: 2500000
+    max_des_len: 78
+    lang_num_max: 64
+    feat_2d_type: dinov3-16plus
+
+model:
+  input_channel: 6
+  blocks: 5
+  block_reps: 2
+  media: 32
+  normalize_before: True
+  return_blocks: True
+  pool: mean
+  infer_mode: sem
+  fps_num: 256
+  task_type: gres
+  use_saqg: True
+  saqg:
+    use_tws_fps: True
+    tws_fps:
+      semantic_gamma: 0.5
+      temperature: 1.0
+    use_dds: True
+    dds:
+      tau_start: 1.0
+      tau_end: 0.5
+      tau_anneal_steps: 10000
+      diversity_weight: 0.1
+      use_diversity_loss: True
+      diversity_margin: 0.1
+      diversity_focal_gamma: 2.0
+      spatial_sigma: 0.5
+  sampling_module:
+    num_proposal: 128
+    pc_dim: 256
+    lang_dim: 256
+    d_model: 256
+  dec: 
+    num_layer: 6
+    d_model: 256
+    nhead: 8
+    hidden_dim: 1024
+    dropout: 0.0
+    activation_fn: gelu
+    iter_pred: True
+    attn_mask: True
+    kernel: top1
+    global_feat: mean
+    lang_att: True
+    contrastive_align_loss: True
+    feat_2d_dim: 1280
+    use_mg_sample: True
+    use_query_diversity_loss: True
+    query_diversity_weight: 0.05
+    query_diversity_margin: 0.1
+    query_diversity_focal_gamma: 2.0
+    use_rad: True
+    rad_cfg:
+      ra_cmrg:
+        mlp_ratio: 2
+        dropout: 0.1
+        entropy_temp: 1.0
+      rbd_topk:
+        enabled: False
+        top_k: 64
+        ste_scale: 1.0
+        residual_weight_init: 0.1
+      de_vqd:
+        latent_dim: 128
+        kl_weight: 0.01
+        dropout: 0.1
+  criterion:
+    loss_weight: [1.0, 1.0, 0.5, 5.0, 0.1, 0.1, 0.1, 1.0]
+    cost_weight: [1.0, 1.0, 0.1]
+    loss_fun: focal
+    match_last_layer: True
+    layer_differ_weight: True
+    use_diversity_loss: True
+    diversity_loss_weight: 0.1
+    query_diversity_loss_weight: 0.05
+    use_vqd_kl_loss: True
+    vqd_kl_loss_weight: 0.01
+  test_cfg:
+    topk_insts: 100
+    score_thr: 0.0
+    npoint_thr: 100
+  norm_eval: False
+  fix_module: [
+              'text_encoder',
+              ]
+
+optimizer:
+  type: AdamW
+  lr: 0.0001
+  weight_decay: 0.0005
+  paramwise_cfg:
+   text_encoder:
+     lr_mult: 0.001
+   input_conv:
+     lr_mult: 0.01
+   unet:
+     lr_mult: 0.01
+   output_layer:
+     lr_mult: 0.01
+   dec:
+     lr_mult: 1.0
+   saqg_module:
+     lr_mult: 1.0
+
+lr_scheduler:
+  type: PolyLR
+  max_iters: 70
+  power: 4.0
+  constant_ending: 0.0
