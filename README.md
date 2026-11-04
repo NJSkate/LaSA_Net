@@ -1,6 +1,6 @@
 LaSA-Net: A Language-Guided Network for Outdoor Generalized 3D Referring Expression Segmentation
 
-NEWS: This repository has been anonymized for submission.
+NEWS: This work has been accepted by NeurIPS 2026！
 
 Anonymous Authors
 
