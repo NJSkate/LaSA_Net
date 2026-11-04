@@ -2,8 +2,6 @@ LaSA-Net: A Language-Guided Network for Outdoor Generalized 3D Referring Express
 
 NEWS: This work has been accepted by NeurIPS 2026！
 
-Anonymous Authors
-
 ### UrbanRefer dataset
 
 The UrbanRefer dataset and the checkpoints is available in the https://drive.google.com/drive/folders/1qtlO2JjENxVdUXC0QqzptftXhgrLfLi0?usp=sharing
