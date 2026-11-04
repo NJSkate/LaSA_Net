@@ -6,11 +6,7 @@ Anonymous Authors
 
 ### UrbanRefer dataset
 
-The UrbanRefer dataset and the checkpoints is available in the https://zenodo.org/records/20003016?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjMyMDUzMmE1LWUxNDQtNDkwMi05ZjExLTdiZWFhMzMxYzdhNiIsImRhdGEiOnt9LCJyYW5kb20iOiI3ZmM5YTU1YTdlNGYwNjJjYzAwNjg1MDEwMDBkN2JhYSJ9.ZYIx-fgAK8qPwZmb_VrpiFXegGz1PqAK5uJ99GGfDbvNAAnsgsJsxRFYZGYpofVfEHvw1xojalj_MiAprE9r4g
-
-The backup link for the UrbanRefer dataset is provided below:
-https://drive.google.com/drive/folders/1qtlO2JjENxVdUXC0QqzptftXhgrLfLi0?usp=sharing
-
+The UrbanRefer dataset and the checkpoints is available in the https://drive.google.com/drive/folders/1qtlO2JjENxVdUXC0QqzptftXhgrLfLi0?usp=sharing
 
 
 ## Installation
