@@ -4,7 +4,7 @@ NEWS: This work has been accepted by NeurIPS 2026！
 
 ### UrbanRefer dataset
 
-The UrbanRefer dataset will be released soon.
+The UrbanRefer dataset is available at the following link:https://drive.google.com/drive/folders/145bEt7QN1sMERWeO43Pg_-II1m3c0K2V?usp=sharing
 
 ## Installation
 
