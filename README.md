@@ -25,12 +25,6 @@ The following installation suppose `python=3.8` `pytorch=1.12.1` and `cuda=11.3`
   conda activate lasanet
   ```
 
-- Clone this repository
-
-  ```
-  git clone <anonymous-repository-url>
-  ```
-
 - Install the dependencies
 
   Install [Pytorch 1.12.1](https://pytorch.org/)
